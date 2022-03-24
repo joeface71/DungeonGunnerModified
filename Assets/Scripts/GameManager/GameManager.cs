@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +23,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     [Tooltip("Poplulate with the starting dungeon level for testing, first level = 0")]
 
-    #endregion
+    #endregion Tooltip
 
     [SerializeField] private int currentDungeonLevelListIndex = 0;
 
@@ -82,5 +80,5 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
 #endif
 
-    #endregion
+    #endregion Validation
 }
