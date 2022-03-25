@@ -110,6 +110,160 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     /// <returns></returns>
     private bool AttemptToBuildRandomDungeon(RoomNodeGraphSO roomNodeGraph)
     {
+        // Create open room node queue
+        Queue<RoomNodeSO> openRoomNodeQueue = new Queue<RoomNodeSO>();
+
+        // Add entrance node to room node queue from room node graph
+        RoomNodeSO entranceNode = roomNodeGraph.GetRoomNode(roomNodeTypeList.list.Find(x => x.isEntrance));
+
+        if (entranceNode != null)
+        {
+            openRoomNodeQueue.Enqueue(entranceNode);
+        }
+        else
+        {
+            Debug.Log("No entrance node");
+            return false; // Dungeon not built
+        }
+
+        // Start with no room overlaps
+        bool noRoomOverlaps = true;
+
+        // Process open room nodes queue
+        noRoomOverlaps = ProcessRoomsInOpenRoomNodeQueue(roomNodeGraph, openRoomNodeQueue, noRoomOverlaps);
+
+        // if all room nodes have been processed and no overlaps return true
+        if (openRoomNodeQueue.Count == 0 && noRoomOverlaps)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Process rooms in the open room node queue, returning true if there are no room overlaps
+    /// </summary>
+    /// <param name="roomNodeGraph"></param>
+    /// <param name="openRoomNodeQueue"></param>
+    /// <param name="noRoomOverlaps"></param>
+    /// <returns></returns>
+    private bool ProcessRoomsInOpenRoomNodeQueue(RoomNodeGraphSO roomNodeGraph, Queue<RoomNodeSO> openRoomNodeQueue, bool noRoomOverlaps)
+    {
+
+        //while room nodes in open room node queue and no room overlaps detected
+        while (openRoomNodeQueue.Count > 0 && noRoomOverlaps == true)
+        {
+            // get next room node from open room node queue
+            RoomNodeSO roomNode = openRoomNodeQueue.Dequeue();
+
+            // add child nodes to queue from room node graph (with links to this parent room)
+            foreach (RoomNodeSO childRoomNode in roomNodeGraph.GetChildRoomNodes(roomNode))
+            {
+                openRoomNodeQueue.Enqueue(childRoomNode);
+            }
+
+            // if the room node is the entrance mark as positioned and add to room dictionary
+            if (roomNode.roomNodeType.isEntrance)
+            {
+                RoomTemplateSO roomTemplate = GetRandomRoomTemplate(roomNode.roomNodeType);
+
+                Room room = CreateRoomFromRoomTemplate(roomTemplate, roomNode);
+
+                room.isPositioned = true;
+
+                // add room to dictionary
+                dungeonBuilderRoomDictionary.Add(room.id, room);
+            }
+
+            // else if the room type isnt an entrance
+            else
+            {
+                // else get parent room for node
+                Room parentRoom = dungeonBuilderRoomDictionary[roomNode.parentRoomNodeIDList[0]];
+
+                // See if room can be placed without overlaps
+                noRoomOverlaps = CanPlaceRoomWithNoOverlaps(roomNode, parentRoom);
+            }
+
+        }
+
+        return noRoomOverlaps;
+    }
+
+    private bool CanPlaceRoomWithNoOverlaps(RoomNodeSO roomNode, Room parentRoom)
+    {
+
+    }
+
+    /// <summary>
+    /// Get a random room template from the room template list that matches the roomtype and return it
+    /// (return null if no matching room templates found)
+    /// </summary>
+    /// <param name="roomNodeType"></param>
+    /// <returns></returns>
+    private RoomTemplateSO GetRandomRoomTemplate(RoomNodeTypeSO roomNodeType)
+    {
+        List<RoomTemplateSO> matchingRoomTemplateList = new List<RoomTemplateSO>();
+
+        // loop through room template list
+        foreach (RoomTemplateSO roomTemplate in roomTemplateList)
+        {
+            // add matching room templates
+            if (roomTemplate.roomNodeType == roomNodeType)
+            {
+                matchingRoomTemplateList.Add(roomTemplate);
+            }
+        }
+
+        // return null if list is zero
+        if (matchingRoomTemplateList.Count == 0)
+        {
+            return null;
+        }
+
+        // select random room template from list and return
+        return matchingRoomTemplateList[UnityEngine.Random.Range(0, matchingRoomTemplateList.Count)];
+    }
+
+    /// <summary>
+    /// create room based on roomtemplate and layoutnode and return the created room
+    /// </summary>
+    /// <param name="roomTemplate"></param>
+    /// <param name="roomNode"></param>
+    /// <returns></returns>
+    private Room CreateRoomFromRoomTemplate(RoomTemplateSO roomTemplate, RoomNodeSO roomNode)
+    {
+        // initialize room from template
+        Room room = new Room();
+
+        room.templateID = roomTemplate.guid;
+        room.id = roomNode.id;
+        room.prefab = roomTemplate.prefab;
+        room.roomNodeType = roomTemplate.roomNodeType;
+        room.lowerBounds = roomTemplate.lowerBounds;
+        room.upperBounds = roomTemplate.upperBounds;
+        room.spawnPositionArray = roomTemplate.spawnPositionArray;
+        room.templateLowerBounds = roomTemplate.lowerBounds;
+        room.templateUpperBounds = roomTemplate.upperBounds;
+
+        room.childRoomIDList = CopyStringList(roomNode.childRoomNodeIDList);
+        room.doorwayList = CopyDoorwayList(roomTemplate.doorwayList);
+
+        // set parent id for room
+        if (roomNode.parentRoomNodeIDList.Count == 0) // entrance
+        {
+            room.parentRoomID = "";
+            room.isPreviouslyVisited = true;
+        }
+        else
+        {
+            room.parentRoomID = roomNode.parentRoomNodeIDList[0];
+        }
+
+        return room;
 
     }
 
@@ -129,6 +283,52 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             Debug.Log("No room node graphs in list");
             return null;
         }
+    }
+
+
+    /// <summary>
+    /// create deep copy of string list
+    /// </summary>
+    /// <param name="vs"></param>
+    /// <returns></returns>
+    private List<string> CopyStringList(List<string> oldStringList)
+    {
+        List<string> newStringList = new List<string>();
+
+        foreach (string stringValue in oldStringList)
+        {
+            newStringList.Add(stringValue);
+        }
+
+        return newStringList;
+    }
+
+    /// <summary>
+    /// Create deep copy of doorway list
+    /// </summary>
+    /// <param name="vs"></param>
+    /// <returns></returns>
+    private List<Doorway> CopyDoorwayList(List<Doorway> oldDoorwayList)
+    {
+        List<Doorway> newDoorwayList = new List<Doorway>();
+
+        foreach (Doorway doorway in oldDoorwayList)
+        {
+            Doorway newDoorway = new Doorway();
+
+            newDoorway.position = doorway.position;
+            newDoorway.orientation = doorway.orientation;
+            newDoorway.doorPrefab = doorway.doorPrefab;
+            newDoorway.isConnected = doorway.isConnected;
+            newDoorway.isUnavailable = doorway.isUnavailable;
+            newDoorway.doorwayStartCopyPosition = doorway.doorwayStartCopyPosition;
+            newDoorway.doorwayCopyTileWidth = doorway.doorwayCopyTileWidth;
+            newDoorway.doorwayCopyTileHeight = doorway.doorwayCopyTileHeight;
+
+            newDoorwayList.Add(newDoorway);
+        }
+
+        return newDoorwayList;
     }
 
     /// <summary>
