@@ -193,7 +193,103 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return noRoomOverlaps;
     }
 
+    /// <summary>
+    /// Attempt to place the room in the dungeon - if room can be placed return the room, else return null
+    /// </summary>
+    /// <param name="roomNode"></param>
+    /// <param name="parentRoom"></param>
+    /// <returns></returns>
     private bool CanPlaceRoomWithNoOverlaps(RoomNodeSO roomNode, Room parentRoom)
+    {
+        // Initialize and assume overlap until proven otherwise
+        bool roomOverlaps = true;
+
+        // do while room overlaps - try to place against all available doorways of the parent until
+        // the room is successfully place without overlap
+        while (roomOverlaps)
+        {
+            // select random unconnected available door for parent
+            List<Doorway> unconnectedAvailableParentDoorways = GetUnconnectedAvailableDoorways(parentRoom.doorwayList).ToList();
+
+            if (unconnectedAvailableParentDoorways.Count == 0)
+            {
+                // If no more doorways to try then overlap failure
+                return false; // room overlaps
+            }
+
+            Doorway doorwayParent = unconnectedAvailableParentDoorways[UnityEngine.Random.Range(0, unconnectedAvailableParentDoorways.Count)];
+
+            // Get a random room template for room node that is consistent with the parent door orientation
+            RoomTemplateSO roomTemplate = GetRandomTemplateForRoomConsistentWithParent(roomNode, doorwayParent);
+
+            // Create a room
+            Room room = CreateRoomFromRoomTemplate(roomTemplate, roomNode);
+
+            // Place the room - returns true if the room doesn't overlap
+            if (PlaceTheRoom(parentRoom, doorwayParent, room))
+            {
+
+            }
+
+
+        }
+    }
+
+    private RoomTemplateSO GetRandomTemplateForRoomConsistentWithParent(RoomNodeSO roomNode, Doorway doorwayParent)
+    {
+        RoomTemplateSO roomTemplate = null;
+
+        // if room node is corridor, select random corridor room template based on parentdoorway orientation
+        if (roomNode.roomNodeType.isCorridor)
+        {
+            switch (doorwayParent.orientation)
+            {
+                case Orientation.north:
+                case Orientation.south:
+                    roomTemplate = GetRandomRoomTemplate(roomNodeTypeList.list.Find(x => x.isCorridorNS));
+                    break;
+
+                case Orientation.east:
+                case Orientation.west:
+                    roomTemplate = GetRandomRoomTemplate(roomNodeTypeList.list.Find(x => x.isCorridorEW));
+                    break;
+
+                case Orientation.none:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        // else select random room template
+        else
+        {
+            roomTemplate = GetRandomRoomTemplate(roomNode.roomNodeType);
+        }
+
+        return roomTemplate;
+    }
+
+    /// <summary>
+    /// Place the room - returns true if the room doesn't overlap - false otherwise
+    /// </summary>
+    /// <param name="parentRoom"></param>
+    /// <param name="doorwayParent"></param>
+    /// <param name="room"></param>
+    /// <returns></returns>
+    private bool PlaceTheRoom(Room parentRoom, Doorway doorwayParent, Room room)
+    {
+        // get current room doorway position
+        Doorway doorway = GetOppositeDoorway(doorwayParent, room.doorwayList);
+    }
+
+    /// <summary>
+    /// Get the doorway from the doorway list that has the opposite orientation to doorway
+    /// </summary>
+    /// <param name="doorwayParent"></param>
+    /// <param name="doorwayList"></param>
+    /// <returns></returns>
+    private Doorway GetOppositeDoorway(Doorway doorwayParent, List<Doorway> doorwayList)
     {
 
     }
@@ -226,6 +322,23 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
         // select random room template from list and return
         return matchingRoomTemplateList[UnityEngine.Random.Range(0, matchingRoomTemplateList.Count)];
+    }
+
+    /// <summary>
+    /// Returns available unconnected doorways
+    /// </summary>
+    /// <param name="roomDoorwayList"></param>
+    /// <returns></returns>
+    private IEnumerable<Doorway> GetUnconnectedAvailableDoorways(List<Doorway> roomDoorwayList)
+    {
+        // Loop through doorway list
+        foreach (Doorway doorway in roomDoorwayList)
+        {
+            if (!doorway.isConnected && !doorway.isUnavailable)
+            {
+                yield return doorway;
+            }
+        }
     }
 
     /// <summary>
