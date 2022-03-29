@@ -64,9 +64,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
-    private void PlayDungeonLevel(int currentDungeonLevelListIndex)
+    private void PlayDungeonLevel(int dungeonLevelListIndex)
     {
-        // test
+        // build dungeon for level
+        bool dungeonBuiltSuccessfully = DungeonBuilder.Instance.GenerateDungeon(dungeonLevelList[dungeonLevelListIndex]);
+
+        if (!dungeonBuiltSuccessfully)
+        {
+            Debug.LogError("Couldn't build dungeon from specified rooms and node graphs");
+        }
     }
 
     #region Validation

@@ -228,11 +228,23 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             // Place the room - returns true if the room doesn't overlap
             if (PlaceTheRoom(parentRoom, doorwayParent, room))
             {
+                // if room doesnt overlap set to fasle to exit while loop
+                roomOverlaps = false;
 
+                // mark room as positioned
+                room.isPositioned = true;
+
+                // add room to dictionary
+                dungeonBuilderRoomDictionary.Add(room.id, room);
+            }
+            else
+            {
+                roomOverlaps = true;
             }
 
-
         }
+
+        return true; // no room overlaps
     }
 
     private RoomTemplateSO GetRandomTemplateForRoomConsistentWithParent(RoomNodeSO roomNode, Doorway doorwayParent)
@@ -281,6 +293,69 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     {
         // get current room doorway position
         Doorway doorway = GetOppositeDoorway(doorwayParent, room.doorwayList);
+
+        // return if no doorway in room opposite to parent doorway
+        if (doorway == null)
+        {
+            // Just mark the parent doorway as unavailable so we don't try and connect it again
+            doorwayParent.isUnavailable = true;
+
+            return false;
+        }
+
+        // Calculate 'world' grid parent doorway position
+        Vector2Int parentDoorwayPosition = parentRoom.lowerBounds + doorwayParent.position - parentRoom.templateLowerBounds;
+
+        Vector2Int adjustment = Vector2Int.zero;
+
+        // Calculate adjustment position offset based on room doorway position that we are trying to connect (ex. if this doorway is west then we need 
+        // to add (1,0) to the east parent doorway)
+
+        switch (doorway.orientation)
+        {
+            case Orientation.north:
+                adjustment = new Vector2Int(0, -1);
+                break;
+            case Orientation.east:
+                adjustment = new Vector2Int(-1, 0);
+                break;
+            case Orientation.south:
+                adjustment = new Vector2Int(0, 1);
+                break;
+            case Orientation.west:
+                adjustment = new Vector2Int(1, 0);
+                break;
+            default:
+                break;
+        }
+
+        // Calculate room lower bounds and upper bounds based on positioning to align with parent doorway
+        room.lowerBounds = parentDoorwayPosition + adjustment + room.templateLowerBounds - doorway.position;
+        room.upperBounds = room.lowerBounds + room.templateUpperBounds - room.templateLowerBounds;
+
+        Room overlapping = CheckForRoomOverlap(room);
+
+        if (overlapping == null)
+        {
+            // mark doorways as connected and unavailable
+            doorwayParent.isConnected = true;
+            doorwayParent.isUnavailable = true;
+
+            doorway.isConnected = true;
+            doorway.isUnavailable = true;
+
+            // return true to show rooms have been connected with no overlap
+            return true;
+        }
+        else
+        {
+            // mark the parent doorway as unavailable so we dont try and connect it again
+            doorwayParent.isUnavailable = true;
+
+            return false;
+        }
+
+
     }
 
     /// <summary>
@@ -289,9 +364,92 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     /// <param name="doorwayParent"></param>
     /// <param name="doorwayList"></param>
     /// <returns></returns>
-    private Doorway GetOppositeDoorway(Doorway doorwayParent, List<Doorway> doorwayList)
+    private Doorway GetOppositeDoorway(Doorway parentDoorway, List<Doorway> doorwayList)
     {
 
+        foreach (Doorway doorwayToCheck in doorwayList)
+        {
+            if (parentDoorway.orientation == Orientation.east && doorwayToCheck.orientation == Orientation.west)
+            {
+                return doorwayToCheck;
+            }
+            else if (parentDoorway.orientation == Orientation.west && doorwayToCheck.orientation == Orientation.east)
+            {
+                return doorwayToCheck;
+            }
+            else if (parentDoorway.orientation == Orientation.north && doorwayToCheck.orientation == Orientation.south)
+            {
+                return doorwayToCheck;
+            }
+            else if (parentDoorway.orientation == Orientation.south && doorwayToCheck.orientation == Orientation.north)
+            {
+                return doorwayToCheck;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Check for rooms that overlap the upper and lower bounds parameters and if there are overlapping rooms then return room else return null
+    /// </summary>
+    /// <param name="roomToTest"></param>
+    /// <returns></returns>
+    private Room CheckForRoomOverlap(Room roomToTest)
+    {
+
+        // iterate through all rooms
+        foreach (KeyValuePair<string, Room> keyValuePair in dungeonBuilderRoomDictionary)
+        {
+            Room room = keyValuePair.Value;
+
+            if (room.id == roomToTest.id || !room.isPositioned)
+            {
+                continue;
+            }
+
+            // if room overlaps
+            if (IsOverlappingRoom(roomToTest, room))
+            {
+                return room;
+            }
+        }
+
+        return null;
+
+    }
+
+    /// <summary>
+    /// Check if 2 rooms overlap each other - return true if they overlapor false if they dont
+    /// </summary>
+    /// <param name="room1"></param>
+    /// <param name="room2"></param>
+    /// <returns></returns>
+    private bool IsOverlappingRoom(Room room1, Room room2)
+    {
+        bool isOverlappingX = IsOverlappingInterval(room1.lowerBounds.x, room1.upperBounds.x, room2.lowerBounds.x, room2.upperBounds.x);
+
+        bool isOverlappingY = IsOverlappingInterval(room1.lowerBounds.y, room1.upperBounds.y, room2.lowerBounds.y, room2.upperBounds.y);
+
+        if (isOverlappingX && isOverlappingY)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool IsOverlappingInterval(int imin1, int imax1, int imin2, int imax2)
+    {
+        if (Mathf.Max(imin1, imin2) <= Mathf.Min(imax1, imax2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -442,6 +600,48 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
 
         return newDoorwayList;
+    }
+
+    /// <summary>
+    /// Instantiate the dungeon room gameobjects from the prefabs
+    /// </summary>
+    private void InstantiateRoomGameobjects()
+    {
+
+    }
+
+    /// <summary>
+    /// Get a room template by room template ID, returns null if ID doesnt exist
+    /// </summary>
+    /// <param name="roomTemplateID"></param>
+    /// <returns></returns>
+    public RoomTemplateSO GetRoomTemplate(string roomTemplateID)
+    {
+        if (roomTemplateDictionary.TryGetValue(roomTemplateID, out RoomTemplateSO roomTemplate))
+        {
+            return roomTemplate;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Get room by roomID, if no room exists with that ID return null
+    /// </summary>
+    /// <param name="roomID"></param>
+    /// <returns></returns>
+    public Room GetRoomByRoomID(string roomID)
+    {
+        if (dungeonBuilderRoomDictionary.TryGetValue(roomID, out Room room))
+        {
+            return room;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /// <summary>
