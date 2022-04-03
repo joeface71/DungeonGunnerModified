@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 6084975026695457558}
   - component: {fileID: 6084975026695457559}
   m_Layer: 18
-  m_Name: HandsNoWeapon
+  m_Name: HandNoWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
