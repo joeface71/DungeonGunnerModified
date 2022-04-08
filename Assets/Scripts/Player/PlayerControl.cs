@@ -7,11 +7,15 @@ public class PlayerControl : MonoBehaviour
     [Tooltip("The player WeaponShootPosition gameObject in the hierarchy")]
     [SerializeField] private Transform weaponShootPosition;
 
+    [SerializeField] private MovementDetailsSO movementDetails;
+
     private Player player;
+    private float moveSpeed;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        moveSpeed = movementDetails.GetMoveSpeed();
     }
 
     private void Update()
@@ -23,7 +27,24 @@ public class PlayerControl : MonoBehaviour
 
     private void MovementInput()
     {
-        player.idleEvent.CallIdleEvent();
+        float horizontalMovement = Input.GetAxisRaw("Horizontal");
+        float verticalMovement = Input.GetAxisRaw("Vertical");
+
+        Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
+
+        if (horizontalMovement != 0f && verticalMovement != 0f)
+        {
+            direction *= 0.7f;
+        }
+
+        if (direction != Vector2.zero)
+        {
+            player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
+        }
+        else
+        {
+            player.idleEvent.CallIdleEvent();
+        }
     }
 
     private void WeaponInput()
@@ -60,4 +81,12 @@ public class PlayerControl : MonoBehaviour
         // trigger weapon aim event
         player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
     }
+
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(movementDetails), movementDetails);
+    }
+#endif
 }
