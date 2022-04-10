@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class Settings
 {
+
+    #region Units
+    public const float pixelsPerUnit = 16f;
+    public const float tileSizePixels = 16f;
+    #endregion
+
     #region DUNGEON BUILD SETTINGS
 
     public const int maxDungeonRebuildAttemptsForRoomGraph = 1000;
