@@ -39,5 +39,13 @@ public static class Settings
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
 
+    // animator parameters - Door
+    public static int open = Animator.StringToHash("open");
     #endregion
+
+    #region Gameobject tags
+    public const string playerTag = "Player";
+    public const string playerWeapon = "playerWeapon";
+    #endregion
+
 }
