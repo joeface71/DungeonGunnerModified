@@ -20,8 +20,8 @@ public class WeaponDetailsSO : ScriptableObject
     [Tooltip("Weapon shoot position - the offset position for the end of the weapon from the sprite pivot point")]
     public Vector3 weaponShootPosition;
 
-    //[Tooltip("Weapon current ammo")]
-    //public AmmoDetailsSO weaponCurrentAmmo;
+    [Tooltip("Weapon current ammo")]
+    public AmmoDetailsSO weaponCurrentAmmo;
 
     [Space(10)]
     [Header("WEAPON OPERATING VALUES")]
@@ -52,9 +52,9 @@ public class WeaponDetailsSO : ScriptableObject
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckEmptyString(this, nameof(weaponName), weaponName);
-        //HelperUtilities.ValidateCheckNullValue(this, nameof(weaponCurrentAmmo), weaponCurrentAmmo);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(weaponCurrentAmmo), weaponCurrentAmmo);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(weaponFireRate), weaponFireRate, false);
-        HelperUtilities.ValidateCheckPositiveValue(this, nameof(weaponPrechargeTime), weaponPrechargeTime, false);
+        HelperUtilities.ValidateCheckPositiveValue(this, nameof(weaponPrechargeTime), weaponPrechargeTime, true);
 
         if (!hasInfiniteAmmo)
         {
