@@ -6,9 +6,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PlayerControl : MonoBehaviour
 {
-    [Tooltip("The player WeaponShootPosition gameObject in the hierarchy")]
-    [SerializeField] private Transform weaponShootPosition;
-
     [SerializeField] private MovementDetailsSO movementDetails;
 
     private Player player;
@@ -147,7 +144,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 mouseWorldPosition = HelperUtilities.GetMouseWorldPosition();
 
         // calculate direction vector of mouse cursor from weapon shoot position
-        weaponDirection = (mouseWorldPosition - weaponShootPosition.position);
+        weaponDirection = (mouseWorldPosition - player.activeWeapon.GetShootPosition());
 
         // calculate direction vector of mouse curson from player transform position
         Vector3 playerDirection = (mouseWorldPosition - transform.position);

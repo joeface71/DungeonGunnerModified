@@ -16,6 +16,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(AimWeaponEvent))]
 [RequireComponent(typeof(AimWeapon))]
 [RequireComponent(typeof(SetActiveWeaponEvent))]
+[RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(AnimatePlayer))]
 [RequireComponent(typeof(SortingGroup))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public SetActiveWeaponEvent setActiveWeaponEvent;
+    [HideInInspector] public ActiveWeapon activeWeapon;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
 
@@ -48,8 +50,9 @@ public class Player : MonoBehaviour
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
