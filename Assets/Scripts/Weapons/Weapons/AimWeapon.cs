@@ -1,34 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AimWeaponEvent))]
 [DisallowMultipleComponent]
 public class AimWeapon : MonoBehaviour
 {
-    [Tooltip("Populate with the transform from the child WeaponRotationPoint gameobject")]
+
+    #region Tooltip
+    [Tooltip("Populate with the Transform from the child WeaponRotationPoint gameobject")]
+    #endregion
     [SerializeField] private Transform weaponRotationPointTransform;
 
     private AimWeaponEvent aimWeaponEvent;
 
     private void Awake()
     {
+        // Load components
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
     }
 
     private void OnEnable()
     {
+        // Subscribe to aim weapon event
         aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
     }
 
     private void OnDisable()
     {
+        // Unsubscribe from aim weapon event
         aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
     /// <summary>
     /// Aim weapon event handler
     /// </summary>
-    /// <param name="aimWeaponEvent"></param>
-    /// <param name="aimWeaponEventArgs"></param>
     private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
     {
         Aim(aimWeaponEventArgs.aimDirection, aimWeaponEventArgs.aimAngle);
@@ -37,8 +43,6 @@ public class AimWeapon : MonoBehaviour
     /// <summary>
     /// Aim the weapon
     /// </summary>
-    /// <param name="aimDirection"></param>
-    /// <param name="aimAngle"></param>
     private void Aim(AimDirection aimDirection, float aimAngle)
     {
         // Set angle of the weapon transform
@@ -49,18 +53,19 @@ public class AimWeapon : MonoBehaviour
         {
             case AimDirection.Left:
             case AimDirection.UpLeft:
-                // Flip the transform on the y axis
                 weaponRotationPointTransform.localScale = new Vector3(1f, -1f, 0f);
                 break;
 
             case AimDirection.Up:
-            case AimDirection.Right:
             case AimDirection.UpRight:
+            case AimDirection.Right:
             case AimDirection.Down:
                 weaponRotationPointTransform.localScale = new Vector3(1f, 1f, 0f);
                 break;
         }
+
     }
+
 
     #region Validation
 #if UNITY_EDITOR
@@ -70,4 +75,5 @@ public class AimWeapon : MonoBehaviour
     }
 #endif
     #endregion
+
 }

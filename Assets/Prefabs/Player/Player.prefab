@@ -367,6 +367,9 @@ GameObject:
   - component: {fileID: 4231575357745936141}
   - component: {fileID: 2551960106663578775}
   - component: {fileID: 6554998571105600505}
+  - component: {fileID: 5042358409987572882}
+  - component: {fileID: 8457795616005441940}
+  - component: {fileID: 8482113969004366633}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -588,7 +591,10 @@ MonoBehaviour:
   movementToPositionEvent: {fileID: 0}
   idleEvent: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
   setActiveWeaponEvent: {fileID: 0}
+  activeWeapon: {fileID: 0}
+  weaponFiredEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &7437274501341595109
@@ -603,7 +609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26798b398a8680c48859079e88f64413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponShootPosition: {fileID: 6084975027527664394}
   movementDetails: {fileID: 11400000, guid: 757ac407c7bf80f44a014033a5399d1f, type: 2}
 --- !u!114 &2291855449535292844
 MonoBehaviour:
@@ -742,6 +747,42 @@ MonoBehaviour:
   weaponPolygonCollider2D: {fileID: 6084975026659468420}
   weaponShootPositionTransform: {fileID: 6084975027527664394}
   weaponEffectPositionTransform: {fileID: 6084975027875303969}
+--- !u!114 &5042358409987572882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084975027857597929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b59c8eb91743e48820a622c5989643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8457795616005441940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084975027857597929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0112cce2b3d0c4895079be17b4ff00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8482113969004366633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084975027857597929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e2a45746c230c4ab76c03dbed07698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6084975027875303968
 GameObject:
   m_ObjectHideFlags: 0
