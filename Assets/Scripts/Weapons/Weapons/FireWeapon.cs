@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
 [DisallowMultipleComponent]
 public class FireWeapon : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class FireWeapon : MonoBehaviour
     private ActiveWeapon activeWeapon;
     private FireWeaponEvent fireWeaponEvent;
     private WeaponFiredEvent weaponFiredEvent;
+    private ReloadWeaponEvent reloadWeaponEvent;
 
     private void Awake()
     {
         activeWeapon = GetComponent<ActiveWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
         weaponFiredEvent = GetComponent<WeaponFiredEvent>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
     }
 
     private void OnEnable()
@@ -68,13 +71,23 @@ public class FireWeapon : MonoBehaviour
     /// <returns></returns>
     private bool IsWeaponReadyToFire()
     {
-        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo) return false;
+        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo)
+        {
+            reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
+
+            return false;
+        }
 
         if (activeWeapon.GetCurrentWeapon().isWeaponReloading) return false;
 
         if (fireRateCoolDownTimer > 0f) return false;
 
-        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0) return false;
+        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0)
+        {
+            reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
+
+            return false;
+        }
 
         return true;
     }

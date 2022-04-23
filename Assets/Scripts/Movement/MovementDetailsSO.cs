@@ -23,7 +23,7 @@ public class MovementDetailsSO : ScriptableObject
     public float rollDistance; // for player
 
     [Tooltip("Cooldown time to prevent spamming of roll")]
-    public float rollCoolDownTime;  // for player
+    public float rollCooldownTime;  // for player
 
     /// <summary>
     /// Get a random movement speed between the min and the max
@@ -53,7 +53,7 @@ public class MovementDetailsSO : ScriptableObject
         {
             HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollDistance), rollDistance, false);
             HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollSpeed), rollSpeed, false);
-            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollCoolDownTime), rollCoolDownTime, false);
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollCooldownTime), rollCooldownTime, false);
 
         }
 
