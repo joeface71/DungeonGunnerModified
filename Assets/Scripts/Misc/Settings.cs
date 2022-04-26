@@ -54,4 +54,8 @@ public static class Settings
     public const float useAimAngleDistance = 3.5f; // if the target distance is less than this amount the aim angle (player pivot) will be used.  Otherwise the weapon aim angle will be used.
     #endregion
 
+    #region UI Parameters
+    public const float uiAmmoIconSpacing = 4f;
+    #endregion
+
 }

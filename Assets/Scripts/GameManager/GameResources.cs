@@ -52,6 +52,12 @@ public class GameResources : MonoBehaviour
     [Tooltip("Variable lit shader")]
     public Material variableLitShader;
 
+    [Space(10)]
+    [Header("UI")]
+
+    [Tooltip("Populate with ammo icon prefab")]
+    public GameObject ammoIconPrefab;
+
     #region Validation
 #if UNITY_EDITOR
     private void OnValidate()
@@ -61,6 +67,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(litMaterial), litMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(dimmedMaterial), dimmedMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
     }
 #endif
     #endregion
