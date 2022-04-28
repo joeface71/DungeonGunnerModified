@@ -152,5 +152,205 @@ public class WeaponStatusUI : MonoBehaviour
         UpdateReloadText(weapon);
     }
 
+    /// <summary>
+    /// Populate active weapon image
+    /// </summary>
+    /// <param name="weaponDetails"></param>
+    private void UpdateActiveWeaponImage(WeaponDetailsSO weaponDetails)
+    {
+        weaponImage.sprite = weaponDetails.weaponSprite;
+    }
+
+    /// <summary>
+    /// Populate active weapon name
+    /// </summary>
+    /// <param name="weapon"></param>
+    private void UpdateActiveWeaponName(Weapon weapon)
+    {
+        weaponNameText.text = "(" + weapon.weaponListPosition + ")" + weapon.weaponDetails.weaponName.ToUpper();
+    }
+
+    /// <summary>
+    /// Update ammo remaining text on the UI
+    /// </summary>
+    /// <param name="weapon"></param>
+    private void UpdateAmmoText(Weapon weapon)
+    {
+        if (weapon.weaponDetails.hasInfiniteAmmo)
+        {
+            ammoRemainingText.text = "INFINITE AMMO";
+        }
+        else
+        {
+            ammoRemainingText.text = weapon.weaponRemainingAmmo.ToString() + "/" + weapon.weaponDetails.weaponAmmoCapacity.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Update ammo clip icons on the UI
+    /// </summary>
+    /// <param name="weapon"></param>
+    private void UpdateAmmoLoadedIcons(Weapon weapon)
+    {
+        ClearAmmoLoadedIcons();
+
+        for (int i = 0; i < weapon.weaponClipRemainingAmmo; i++)
+        {
+            GameObject ammoIcon = Instantiate(GameResources.Instance.ammoIconPrefab, ammoHolderTransform);
+
+            ammoIcon.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, Settings.uiAmmoIconSpacing * i);
+
+            ammoIconList.Add(ammoIcon);
+        }
+    }
+
+    /// <summary>
+    /// Clear ammo icons
+    /// </summary>
+    private void ClearAmmoLoadedIcons()
+    {
+        foreach (GameObject ammoIcon in ammoIconList)
+        {
+            Destroy(ammoIcon);
+        }
+
+        ammoIconList.Clear();
+    }
+
+    /// <summary>
+    /// Reload weapon - update the reload bar on the UI
+    /// </summary>
+    /// <param name="weapon"></param>
+    private void UpdateWeaponReloadBar(Weapon weapon)
+    {
+        if (weapon.weaponDetails.hasInfiniteClipCapacity) return;
+
+        StopReloadWeaponCoroutine();
+        UpdateReloadText(weapon);
+
+        reloadWeaponCoroutine = StartCoroutine(UpdateWeaponReloadBarRoutine(weapon));
+    }
+
+    /// <summary>
+    /// Animate reload weapon bar image
+    /// </summary>
+    /// <param name="currentWeapon"></param>
+    /// <returns></returns>
+    private IEnumerator UpdateWeaponReloadBarRoutine(Weapon currentWeapon)
+    {
+        barImage.color = Color.red;
+
+        while (currentWeapon.isWeaponReloading)
+        {
+            float barfill = currentWeapon.weaponReloadTimer / currentWeapon.weaponDetails.weaponReloadTime;
+
+            reloadBar.transform.localScale = new Vector3(barfill, 1f, 1f);
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Initialize the weapon reload bar on the UI
+    /// </summary>
+    private void ResetWeaponReloadedBar()
+    {
+        StopReloadWeaponCoroutine();
+
+        barImage.color = Color.green;
+
+        reloadBar.transform.localScale = new Vector3(1f, 1f, 1f);
+    }
+
+
+    /// <summary>
+    /// Stop coroutine updating weapon reload progress bar
+    /// </summary>
+    private void StopReloadWeaponCoroutine()
+    {
+        if (reloadWeaponCoroutine != null)
+        {
+            StopCoroutine(reloadWeaponCoroutine);
+        }
+    }
+
+    /// <summary>
+    /// Updates the reload text
+    /// </summary>
+    /// <param name="weapon"></param>
+    private void UpdateReloadText(Weapon weapon)
+    {
+        if ((!weapon.weaponDetails.hasInfiniteClipCapacity) && (weapon.weaponClipRemainingAmmo <= 0 || weapon.isWeaponReloading))
+        {
+            barImage.color = Color.red;
+
+            StopBlinkingReloadTextCoroutine();
+
+            blinkingReloadTextCoroutine = StartCoroutine(StartBlinkingReloadTextRoutine());
+        }
+        else
+        {
+            StopBlinkingReloadText();
+        }
+    }
+
+    /// <summary>
+    /// Start the coroutine to blink the reload weapon text
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator StartBlinkingReloadTextRoutine()
+    {
+        while (true)
+        {
+            reloadText.text = "RELOAD";
+            yield return new WaitForSeconds(0.3f);
+            reloadText.text = "";
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    /// <summary>
+    /// Stop the blinking reload text
+    /// </summary>
+    private void StopBlinkingReloadText()
+    {
+        StopBlinkingReloadTextCoroutine();
+
+        reloadText.text = "";
+    }
+
+    /// <summary>
+    /// Stop the blinking reload text coroutine
+    /// </summary>
+    private void StopBlinkingReloadTextCoroutine()
+    {
+        if (blinkingReloadTextCoroutine != null)
+        {
+            StopCoroutine(blinkingReloadTextCoroutine);
+        }
+    }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(weaponImage), weaponImage);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ammoHolderTransform), ammoHolderTransform);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(reloadText), reloadText);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ammoRemainingText), ammoRemainingText);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(weaponNameText), weaponNameText);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(reloadBar), reloadBar);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(barImage), barImage);
+
+    }
+#endif
+    #endregion
+
+
+
+
+
+
+
 
 }
