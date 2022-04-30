@@ -1710,6 +1710,9 @@ MonoBehaviour:
   - poolSize: 30
     prefab: {fileID: 1424690857295382478, guid: cbd3b68151a1e1f40982a64917237f3b, type: 3}
     componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 1424690857295382478, guid: 09d3d69883e92b64ca25e3e67e169ba7, type: 3}
+    componentType: IFireable
 --- !u!4 &1598351830
 Transform:
   m_ObjectHideFlags: 0

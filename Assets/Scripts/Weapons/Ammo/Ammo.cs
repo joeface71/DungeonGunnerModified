@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class Ammo : MonoBehaviour, IFireable
 {
+    #region Tooltip
     [Tooltip("Populate with child TrailRenderer component")]
+    #endregion Tooltip
     [SerializeField] private TrailRenderer trailRenderer;
 
     private float ammoRange = 0f; // the range of each ammo
@@ -20,6 +20,7 @@ public class Ammo : MonoBehaviour, IFireable
 
     private void Awake()
     {
+        // cache sprite renderer
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -49,6 +50,7 @@ public class Ammo : MonoBehaviour, IFireable
         {
             DisableAmmo();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,14 +59,10 @@ public class Ammo : MonoBehaviour, IFireable
     }
 
     /// <summary>
-    /// Initialize the ammo being fired - using the ammodetails, the aimangle, weaponAngle and weaponaimdirectionvector.  if this ammo is part of a pattern the ammo movement can be overriden.
+    /// Initialise the ammo being fired - using the ammodetails, the aimangle, weaponAngle, and
+    /// weaponAimDirectionVector. If this ammo is part of a pattern the ammo movement can be
+    /// overriden by setting overrideAmmoMovement to true
     /// </summary>
-    /// <param name="ammoDetails"></param>
-    /// <param name="aimAngle"></param>
-    /// <param name="weaponAimAngle"></param>
-    /// <param name="ammoSpeed"></param>
-    /// <param name="weaponAimDirectionVector"></param>
-    /// <param name="overrideAmmoMovement"></param>
     public void InitialiseAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed, Vector3 weaponAimDirectionVector, bool overrideAmmoMovement = false)
     {
         #region Ammo
@@ -80,7 +78,7 @@ public class Ammo : MonoBehaviour, IFireable
         // set initial ammo material depending on whether there is an ammo charge period
         if (ammoDetails.ammoChargeTime > 0f)
         {
-            // set ammo charge timer
+            // Set ammo charge timer
             ammoChargeTimer = ammoDetails.ammoChargeTime;
             SetAmmoMaterial(ammoDetails.ammoChargeMaterial);
             isAmmoMaterialSet = false;
@@ -92,10 +90,10 @@ public class Ammo : MonoBehaviour, IFireable
             isAmmoMaterialSet = true;
         }
 
-        // set ammo range
+        // Set ammo range
         ammoRange = ammoDetails.ammoRange;
 
-        // set ammo speed
+        // Set ammo speed
         this.ammoSpeed = ammoSpeed;
 
         // Override ammo movement
@@ -104,7 +102,8 @@ public class Ammo : MonoBehaviour, IFireable
         // Activate ammo gameobject
         gameObject.SetActive(true);
 
-        #endregion
+        #endregion Ammo
+
 
         #region Trail
 
@@ -112,7 +111,7 @@ public class Ammo : MonoBehaviour, IFireable
         {
             trailRenderer.gameObject.SetActive(true);
             trailRenderer.emitting = true;
-            trailRenderer.material = ammoDetails.ammoMaterial;
+            trailRenderer.material = ammoDetails.ammoTrailMaterial;
             trailRenderer.startWidth = ammoDetails.ammoTrailStartWidth;
             trailRenderer.endWidth = ammoDetails.ammoTrailEndWidth;
             trailRenderer.time = ammoDetails.ammoTrailTime;
@@ -123,22 +122,20 @@ public class Ammo : MonoBehaviour, IFireable
             trailRenderer.gameObject.SetActive(false);
         }
 
-        #endregion
+        #endregion Trail
+
     }
 
     /// <summary>
-    /// Set ammo fire direction and angle based on the input angle and direction adjusted by the random spread
+    /// Set ammo fire direction and angle based on the input angle and direction adjusted by the
+    /// random spread
     /// </summary>
-    /// <param name="ammoDetails"></param>
-    /// <param name="aimAngle"></param>
-    /// <param name="weaponAimAngle"></param>
-    /// <param name="weaponAimDirectionVector"></param>
     private void SetFireDirection(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
-        // Calculate random spread angle between min and max
+        // calculate random spread angle between min and max
         float randomSpread = Random.Range(ammoDetails.ammoSpreadMin, ammoDetails.ammoSpreadMax);
 
-        // Get a random spread toggle of 1 or -1 **** remember this formula for future use ****
+        // Get a random spread toggle of 1 or -1
         int spreadToggle = Random.Range(0, 2) * 2 - 1;
 
         if (weaponAimDirectionVector.magnitude < Settings.useAimAngleDistance)
@@ -150,18 +147,19 @@ public class Ammo : MonoBehaviour, IFireable
             fireDirectionAngle = weaponAimAngle;
         }
 
-        // Adjust ammo fire angle by random spread
+        // Adjust ammo fire angle angle by random spread
         fireDirectionAngle += spreadToggle * randomSpread;
 
         // Set ammo rotation
         transform.eulerAngles = new Vector3(0f, 0f, fireDirectionAngle);
 
-        // Set ammo fire direction using helper method
+        // Set ammo fire direction
         fireDirectionVector = HelperUtilities.GetDirectionVectorFromAngle(fireDirectionAngle);
+
     }
 
     /// <summary>
-    /// Disable the ammo - returns it to the object pool
+    /// Disable the ammo - thus returning it to the object pool
     /// </summary>
     private void DisableAmmo()
     {
@@ -173,13 +171,13 @@ public class Ammo : MonoBehaviour, IFireable
         spriteRenderer.material = material;
     }
 
+
     public GameObject GetGameObject()
     {
         return gameObject;
     }
 
     #region Validation
-
 #if UNITY_EDITOR
 
     private void OnValidate()
@@ -188,7 +186,6 @@ public class Ammo : MonoBehaviour, IFireable
     }
 
 #endif
-
-    #endregion
+    #endregion Validation
 
 }
