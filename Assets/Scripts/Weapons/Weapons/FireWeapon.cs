@@ -121,6 +121,39 @@ public class FireWeapon : MonoBehaviour
 
         if (currentAmmo != null)
         {
+            StartCoroutine(FireAmmoCoroutine(currentAmmo, aimAngle, weaponAimAngle, weaponAimDirectionVector));
+        }
+    }
+
+    /// <summary>
+    /// Coroutine to spawn multiple ammo per shot if specified in the ammo details
+    /// </summary>
+    /// <param name="ammoDetails"></param>
+    /// <param name="aimAngle"></param>
+    /// <param name="weaponAimAngle"></param>
+    /// <param name="weaponAimDirectionVector"></param>
+    /// <returns></returns>
+    private IEnumerator FireAmmoCoroutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
+    {
+        int ammoCounter = 0;
+
+        int ammoPerShot = Random.Range(currentAmmo.ammoSpawnAmountMin, currentAmmo.ammoSpawnAmountMax + 1);
+
+        float ammoSpawnInterval;
+
+        if (ammoPerShot > 1)
+        {
+            ammoSpawnInterval = Random.Range(currentAmmo.ammoSpawnIntervalMin, currentAmmo.ammoSpawnIntervalMax);
+        }
+        else
+        {
+            ammoSpawnInterval = 0f;
+        }
+
+        while (ammoCounter < ammoPerShot)
+        {
+            ammoCounter++;
+
             GameObject ammoPrefab = currentAmmo.ammoPrefabArray[Random.Range(0, currentAmmo.ammoPrefabArray.Length)];
 
             float ammoSpeed = Random.Range(currentAmmo.ammoSpeedMin, currentAmmo.ammoSpeedMax);
@@ -130,14 +163,16 @@ public class FireWeapon : MonoBehaviour
 
             ammo.InitialiseAmmo(currentAmmo, aimAngle, weaponAimAngle, ammoSpeed, weaponAimDirectionVector);
 
-            if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
-            {
-                activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
-                activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
-            }
-
-            weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
+            yield return new WaitForSeconds(ammoSpawnInterval);
         }
+
+        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
+        {
+            activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
+            activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
+        }
+
+        weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
     }
 
     /// <summary>
