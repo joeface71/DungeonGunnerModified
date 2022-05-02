@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameResources : MonoBehaviour
 {
@@ -31,11 +32,20 @@ public class GameResources : MonoBehaviour
     #region Header PLAYER
     [Space(10)]
     [Header("PLAYER")]
-    #endregion
+    #endregion Header PLAYER
     #region Tooltip
-    [Tooltip("The current player scriptable object - this is used to reference the current plyer between scenes")]
-    #endregion
+    [Tooltip("The current player scriptable object - this is used to reference the current player between scenes")]
+    #endregion Tooltip
     public CurrentPlayerSO currentPlayer;
+
+    #region Header SOUNDS
+    [Space(10)]
+    [Header("SOUNDS")]
+    #endregion Header
+    #region Tooltip
+    [Tooltip("Populate with the sounds master mixer group")]
+    #endregion
+    public AudioMixerGroup soundsMasterMixerGroup;
 
     #region Header MATERIALS
     [Space(10)]
@@ -46,20 +56,28 @@ public class GameResources : MonoBehaviour
     #endregion
     public Material dimmedMaterial;
 
-    [Tooltip("Sprite-lit-default material")]
+    #region Tooltip
+    [Tooltip("Sprite-Lit-Default Material")]
+    #endregion
     public Material litMaterial;
 
-    [Tooltip("Variable lit shader")]
-    public Material variableLitShader;
+    #region Tooltip
+    [Tooltip("Populate with the Variable Lit Shader")]
+    #endregion
+    public Shader variableLitShader;
 
+    #region Header UI
     [Space(10)]
     [Header("UI")]
-
+    #endregion
+    #region Tooltip
     [Tooltip("Populate with ammo icon prefab")]
+    #endregion
     public GameObject ammoIconPrefab;
 
     #region Validation
 #if UNITY_EDITOR
+    // Validate the scriptable object details entered
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckNullValue(this, nameof(roomNodeTypeList), roomNodeTypeList);
@@ -69,7 +87,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
     }
+
 #endif
     #endregion
-
 }

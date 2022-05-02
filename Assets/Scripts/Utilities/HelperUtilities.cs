@@ -100,6 +100,13 @@ public static class HelperUtilities
 
     }
 
+    public static float LinearToDecibels(int linear)
+    {
+        float linearScaleRange = 20f;
+
+        // convert linear scale to logarithmic decibel scale
+        return Mathf.Log10((float)linear / linearScaleRange) * 20f;
+    }
 
     /// <summary>
     /// Empty string debug check

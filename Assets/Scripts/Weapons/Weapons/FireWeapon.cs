@@ -173,6 +173,16 @@ public class FireWeapon : MonoBehaviour
         }
 
         weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
+
+        WeaponSoundEffect();
+    }
+
+    private void WeaponSoundEffect()
+    {
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect != null)
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect);
+        }
     }
 
     /// <summary>
