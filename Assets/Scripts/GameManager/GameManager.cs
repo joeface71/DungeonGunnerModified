@@ -144,6 +144,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     }
 
     /// <summary>
+    /// returns the player minimap icon sprite
+    /// </summary>
+    /// <returns></returns>
+    public Sprite GetPlayerMiniMapIcon()
+    {
+        return playerDetails.playerMiniMapIcon;
+    }
+
+    /// <summary>
     /// Get the curret room the player is in
     /// </summary>
     /// <returns></returns>
