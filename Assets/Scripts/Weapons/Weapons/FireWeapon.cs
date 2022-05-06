@@ -121,7 +121,7 @@ public class FireWeapon : MonoBehaviour
 
         if (currentAmmo != null)
         {
-            StartCoroutine(FireAmmoCoroutine(currentAmmo, aimAngle, weaponAimAngle, weaponAimDirectionVector));
+            StartCoroutine(FireAmmoRoutine(currentAmmo, aimAngle, weaponAimAngle, weaponAimDirectionVector));
         }
     }
 
@@ -133,7 +133,7 @@ public class FireWeapon : MonoBehaviour
     /// <param name="weaponAimAngle"></param>
     /// <param name="weaponAimDirectionVector"></param>
     /// <returns></returns>
-    private IEnumerator FireAmmoCoroutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
+    private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
         int ammoCounter = 0;
 
@@ -174,6 +174,8 @@ public class FireWeapon : MonoBehaviour
 
         weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
 
+        WeaponShootEffect(aimAngle);
+
         WeaponSoundEffect();
     }
 
@@ -196,6 +198,19 @@ public class FireWeapon : MonoBehaviour
     private void ResetPrechargeTimer()
     {
         firePreChargeTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponPrechargeTime;
+    }
+
+    private void WeaponShootEffect(float aimAngle)
+    {
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect != null && activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab != null)
+        {
+            WeaponShootEffect weaponShootEffect = (WeaponShootEffect)PoolManager.Instance.ReuseComponent(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab,
+                activeWeapon.GetShootEffectPosition(), Quaternion.identity);
+
+            weaponShootEffect.SetShootEffect(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect, aimAngle);
+
+            weaponShootEffect.gameObject.SetActive(true);
+        }
     }
 
 }
