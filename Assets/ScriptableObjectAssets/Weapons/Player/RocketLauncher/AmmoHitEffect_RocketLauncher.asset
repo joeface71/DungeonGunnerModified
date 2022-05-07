@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e773cc11989ec41992df32fc50074b, type: 3}
+  m_Name: AmmoHitEffect_RocketLauncher
+  m_EditorClassIdentifier: 
+  colorGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.9811321, g: 0.7774242, b: 0.041651815, a: 1}
+    key2: {r: 0.8396226, g: 0.019903477, b: 0.011881431, a: 0.61960787}
+    key3: {r: 0.8207547, g: 0.01690293, b: 0.011614433, a: 0.27450982}
+    key4: {r: 0.3773585, g: 0.37205032, b: 0.37201852, a: 0}
+    key5: {r: 0.8113208, g: 0.79983985, b: 0.79983985, a: 0}
+    key6: {r: 0.009433985, g: 0.009300485, b: 0.009300485, a: 0}
+    key7: {r: 1, g: 1, b: 1, a: 0}
+    ctime0: 0
+    ctime1: 10409
+    ctime2: 24479
+    ctime3: 35659
+    ctime4: 41249
+    ctime5: 47995
+    ctime6: 55512
+    ctime7: 65535
+    atime0: 0
+    atime1: 28334
+    atime2: 45489
+    atime3: 65535
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 7
+    m_NumAlphaKeys: 4
+  duration: 0.5
+  startParticleSize: 1.5
+  startParticleSpeed: 7
+  startLifetime: 2.5
+  maxParticleNumber: 44
+  emissionRate: 0
+  burstParticleNumber: 44
+  effectGravity: -0.01
+  sprite: {fileID: 21300000, guid: 0353c94c9a71d82479019ca3270b87b0, type: 3}
+  velocityOverLifetimeMin: {x: -10, y: -10, z: 0}
+  velocityOverLifetimeMax: {x: 10, y: 10, z: 0}
+  ammoHitEffectPrefab: {fileID: 8823513716251874669, guid: 090aed26423ddbc408f4066b3549f7cc, type: 3}
