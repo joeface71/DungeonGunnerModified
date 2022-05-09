@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MudRock_Brown
       objectReference: {fileID: 0}
+    - target: {fileID: 7980071257937316797, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f372b3c644e5ce4a9d95f7f7f25d99a, type: 2}
     - target: {fileID: 8015485662188815705, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Sprite
       value: 

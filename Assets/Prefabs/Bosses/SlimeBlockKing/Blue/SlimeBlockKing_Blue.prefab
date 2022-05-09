@@ -111,6 +111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeBlockKing_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 7980071257937316797, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c584c390b9e9e4e4faab37cd1bfce8b3, type: 2}
     - target: {fileID: 8015485662188815705, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Sprite
       value: 
