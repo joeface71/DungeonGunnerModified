@@ -73,6 +73,35 @@ public static class AStar
     }
 
     /// <summary>
+    /// Create a stack vector3 containing the movement path
+    /// </summary>
+
+    private static Stack<Vector3> CreatePathStack(Node targetNode, Room room)
+    {
+        Stack<Vector3> movementPathStack = new Stack<Vector3>();
+
+        Node nextNode = targetNode;
+
+        // Get mid point of cell
+        Vector3 cellMidPoint = room.instantiatedRoom.grid.cellSize * 0.5f;
+        cellMidPoint.z = 0f;
+
+        while (nextNode != null)
+        {
+            // Convert grid position to world position
+            Vector3 worldPosition = room.instantiatedRoom.grid.CellToWorld(new Vector3Int(nextNode.gridPosition.x + room.templateLowerBounds.x, nextNode.gridPosition.y + room.templateLowerBounds.y, 0));
+
+            worldPosition += cellMidPoint;
+
+            movementPathStack.Push(worldPosition);
+
+            nextNode = nextNode.parentNode;
+        }
+
+        return movementPathStack;
+    }
+
+    /// <summary>
     /// Evaluate neighbor nodes
     /// </summary>    
     private static void EvaluateCurrentNodeNeighbours(Node currentNode, Node targetNode, GridNodes gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiatedRoom instantiatedRoom)
@@ -113,4 +142,53 @@ public static class AStar
             }
         }
     }
+
+
+
+    /// <summary>
+    /// Returns the distance int between nodeA and nodeB
+    /// </summary>
+    /// <param name="nodeA"></param>
+    /// <param name="nodeB"></param>
+    /// <returns></returns>
+    private static int GetDistance(Node nodeA, Node nodeB)
+    {
+        int dstX = Mathf.Abs(nodeA.gridPosition.x - nodeB.gridPosition.x);
+        int dstY = Math.Abs(nodeA.gridPosition.y - nodeB.gridPosition.y);
+
+        if (dstX > dstY)
+        {
+            return 14 * dstY + 10 * (dstX - dstY);
+        }
+        return 14 * dstX + 10 * (dstY - dstX);
+    }
+
+    /// <summary>
+    /// Evaluate a neighbour node at neighborNodeXPosition, neighbourNodeYPosition, using the 
+    /// specified gridNodes, closedNodeHashSet, and instantiated room.  Returns null if not valid.
+    /// </summary>    
+    private static Node GetValidNodeNeighbor(int neighbourNodeXPosition, int neighbourNodeYPosition, GridNodes gridNodes, HashSet<Node> closedNodeHashSet, InstantiatedRoom instantiatedRoom)
+    {
+        if (neighbourNodeXPosition >= instantiatedRoom.room.templateUpperBounds.x - instantiatedRoom.room.templateLowerBounds.x || neighbourNodeXPosition < 0
+            || neighbourNodeYPosition >= instantiatedRoom.room.templateUpperBounds.y - instantiatedRoom.room.templateLowerBounds.y || neighbourNodeYPosition < 0)
+        {
+            return null;
+        }
+
+        Node neighbourNode = gridNodes.GetGridNode(neighbourNodeXPosition, neighbourNodeYPosition);
+
+        if (closedNodeHashSet.Contains(neighbourNode))
+        {
+            return null;
+        }
+        else
+        {
+            return neighbourNode;
+        }
+
+
+    }
+
+
+
 }
