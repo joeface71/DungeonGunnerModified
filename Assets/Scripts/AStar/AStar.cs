@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,5 +36,81 @@ public static class AStar
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Find the shortest path - returns the end Node if a path has been found, else returns null
+    /// </summary>
+    /// <param name="startNode"></param>
+    /// <param name="targetNode"></param>
+    /// <param name="gridNodes"></param>
+    /// <param name="openNodeList"></param>
+    /// <param name="closedNodeHashSet"></param>
+    /// <param name="instantiatedRoom"></param>
+    /// <returns></returns>
+    private static Node FindShortestPath(Node startNode, Node targetNode, GridNodes gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiatedRoom instantiatedRoom)
+    {
+        openNodeList.Add(startNode);
+
+        while (openNodeList.Count > 0)
+        {
+            openNodeList.Sort(); // IComparable allows sorting
+
+            Node currentNode = openNodeList[0]; // Node with the lowest fCost
+            openNodeList.RemoveAt(0);
+
+            if (currentNode == targetNode)
+            {
+                return currentNode;
+            }
+
+            closedNodeHashSet.Add(currentNode);
+
+            // evaluate fcost for each neighbor of current node
+            EvaluateCurrentNodeNeighbours(currentNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, instantiatedRoom);
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Evaluate neighbor nodes
+    /// </summary>    
+    private static void EvaluateCurrentNodeNeighbours(Node currentNode, Node targetNode, GridNodes gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiatedRoom instantiatedRoom)
+    {
+        Vector2Int currentNodeGridPosition = currentNode.gridPosition;
+
+        Node validNeighborNode;
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == 0 && j == 0) continue;
+
+                validNeighborNode = GetValidNodeNeighbor(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, instantiatedRoom);
+
+                if (validNeighborNode != null)
+                {
+                    // Calculate new gCost for neighbor
+                    int newCostToNeighbor;
+
+                    newCostToNeighbor = currentNode.gCost + GetDistance(currentNode, validNeighborNode);
+
+                    bool isValidNeighborNodeInOpenList = openNodeList.Contains(validNeighborNode);
+
+                    if (newCostToNeighbor < validNeighborNode.gCost || !isValidNeighborNodeInOpenList)
+                    {
+                        validNeighborNode.gCost = newCostToNeighbor;
+                        validNeighborNode.hCost = GetDistance(validNeighborNode, targetNode);
+                        validNeighborNode.parentNode = currentNode;
+
+                        if (!isValidNeighborNodeInOpenList)
+                        {
+                            openNodeList.Add(validNeighborNode);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
