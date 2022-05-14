@@ -112,7 +112,9 @@ public static class AStar
                     // Calculate new gCost for neighbor
                     int newCostToNeighbor;
 
-                    newCostToNeighbor = currentNode.gCost + GetDistance(currentNode, validNeighborNode);
+                    int movementPenaltyForGridSpace = instantiatedRoom.aStarMovementPenalty[validNeighborNode.gridPosition.x, validNeighborNode.gridPosition.y];
+
+                    newCostToNeighbor = currentNode.gCost + GetDistance(currentNode, validNeighborNode) + movementPenaltyForGridSpace;
 
                     bool isValidNeighborNodeInOpenList = openNodeList.Contains(validNeighborNode);
 
@@ -166,7 +168,9 @@ public static class AStar
 
         Node neighbourNode = gridNodes.GetGridNode(neighbourNodeXPosition, neighbourNodeYPosition);
 
-        if (closedNodeHashSet.Contains(neighbourNode))
+        int movementPenaltyForGridSpace = instantiatedRoom.aStarMovementPenalty[neighbourNodeXPosition, neighbourNodeYPosition];
+
+        if (movementPenaltyForGridSpace == 0 || closedNodeHashSet.Contains(neighbourNode))
         {
             return null;
         }

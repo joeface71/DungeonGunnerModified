@@ -54,6 +54,11 @@ public static class Settings
     public const float useAimAngleDistance = 3.5f; // if the target distance is less than this amount the aim angle (player pivot) will be used.  Otherwise the weapon aim angle will be used.
     #endregion
 
+    #region AStar Pathfinding Parameters
+    public const int defaultAStarMovementPenalty = 40;
+    public const int preferredPathAStarMovementPenalty = 1;
+    #endregion
+
     #region UI Parameters
     public const float uiAmmoIconSpacing = 4f;
     #endregion
