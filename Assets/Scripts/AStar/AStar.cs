@@ -7,11 +7,7 @@ public static class AStar
     /// <summary>
     /// Builds a path for the room, from the startGridPosition to the endGridPosition,
     /// and adds movement steps to the returned stack.  Returns null if no path is found.
-    /// </summary>
-    /// <param name="room"></param>
-    /// <param name="startGridPosition"></param>
-    /// <param name="vector3Int"></param>
-    /// <returns></returns>
+    /// </summary>    
     public static Stack<Vector3> BuildPath(Room room, Vector3Int startGridPosition, Vector3Int endGridPosition)
     {
         // Adjust positions by lower bounds -- rebases gridPositons to a grid that has a (0,0) origin
@@ -40,14 +36,7 @@ public static class AStar
 
     /// <summary>
     /// Find the shortest path - returns the end Node if a path has been found, else returns null
-    /// </summary>
-    /// <param name="startNode"></param>
-    /// <param name="targetNode"></param>
-    /// <param name="gridNodes"></param>
-    /// <param name="openNodeList"></param>
-    /// <param name="closedNodeHashSet"></param>
-    /// <param name="instantiatedRoom"></param>
-    /// <returns></returns>
+    /// </summary>    
     private static Node FindShortestPath(Node startNode, Node targetNode, GridNodes gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiatedRoom instantiatedRoom)
     {
         openNodeList.Add(startNode);
@@ -185,7 +174,6 @@ public static class AStar
         {
             return neighbourNode;
         }
-
 
     }
 
