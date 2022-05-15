@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1533258784015118989, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 8907d27fc5c671849a335afa7f409b7e, type: 2}
     - target: {fileID: 4770218244887534015, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.3146787
@@ -95,6 +99,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5670350519034361840, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 2bcc2df550b313f458a9b235fa92fcb2, type: 2}
     - target: {fileID: 5835624594301315889, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Name
       value: SlimeBlock_Blue

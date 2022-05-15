@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1533258784015118989, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: bb96e9f0a654c774193849af805d3d7b, type: 2}
     - target: {fileID: 4770218244887534015, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.875
@@ -75,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
       value: 0.12771949
       objectReference: {fileID: 0}
+    - target: {fileID: 5670350519034361840, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: eef635d01f079ba489bb5265558dcf2a, type: 2}
     - target: {fileID: 5835624594301315889, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Name
       value: Hedusa_Green

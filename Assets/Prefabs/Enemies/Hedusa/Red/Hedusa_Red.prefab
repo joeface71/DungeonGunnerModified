@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1533258784015118989, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: f3f7478896bd84840a5d48f7075431f2, type: 2}
     - target: {fileID: 4770218244887534015, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -79,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
       value: 0.12771949
       objectReference: {fileID: 0}
+    - target: {fileID: 5670350519034361840, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 67bd11483f82cb5418c98187bfdccf85, type: 2}
     - target: {fileID: 5835624594301315889, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Name
       value: Hedusa_Red

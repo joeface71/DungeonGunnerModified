@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1533258784015118989, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 0019d06671c5d5c45a35e2cd78c3c718, type: 2}
     - target: {fileID: 4770218244887534015, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
@@ -111,6 +115,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5670350519034361840, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: efbbc47b7b87ac346bea0d7d279d8410, type: 2}
     - target: {fileID: 5835624594301315889, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Name
       value: MudRock_Brown

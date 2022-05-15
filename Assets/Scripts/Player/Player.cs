@@ -99,6 +99,15 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// returns vector 3 of player position
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;
+    }
+
+    /// <summary>
     /// Add a weaponto the player weapon dictionary
     /// </summary>
     /// <param name="weaponDetails"></param>
