@@ -1630,7 +1630,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1359c9a94126874ab91a29a5e42e71b, type: 2}
   - {fileID: 11400000, guid: 572b78511055e2d459f68b649c207a82, type: 2}
   - {fileID: 11400000, guid: eb768ac1213147c47be3245731232fb4, type: 2}
-  currentDungeonLevelListIndex: 2
+  currentDungeonLevelListIndex: 5
   gameState: 0
 --- !u!4 &1158749295
 Transform:
@@ -1666,7 +1666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fca910f64a4e442be201529b9895f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomTemplateSO: {fileID: 11400000, guid: 5ec7c3fd29261984abd0f0a91400645d, type: 2}
 --- !u!1 &1225544466
 GameObject:
   m_ObjectHideFlags: 0
