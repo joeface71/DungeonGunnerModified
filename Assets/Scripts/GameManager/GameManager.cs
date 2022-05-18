@@ -161,6 +161,16 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         return currentRoom;
     }
 
+    /// <summary>
+    /// Get the current dungeon level
+    /// </summary>
+    /// <returns></returns>
+    public DungeonLevelSO GetCurrentDungeonLevel()
+    {
+        return dungeonLevelList[currentDungeonLevelListIndex];
+    }
+
+
     #region Validation
 
 #if UNITY_EDITOR

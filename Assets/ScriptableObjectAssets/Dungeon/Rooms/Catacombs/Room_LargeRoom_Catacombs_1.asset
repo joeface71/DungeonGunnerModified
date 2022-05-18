@@ -60,3 +60,20 @@ MonoBehaviour:
   - {x: -12, y: 0}
   - {x: 6, y: -3}
   - {x: 19, y: -4}
+  enemiesByLevelList:
+  - dungeonLevel: {fileID: 11400000, guid: bfbb03d7c7487dc45b2059e25cde342a, type: 2}
+    spawnableObjectRatioList:
+    - dungeonObject: {fileID: 11400000, guid: 963b13aad528ee9438fb960acab9c084, type: 2}
+      ratio: 5
+    - dungeonObject: {fileID: 11400000, guid: 8907d27fc5c671849a335afa7f409b7e, type: 2}
+      ratio: 6
+    - dungeonObject: {fileID: 11400000, guid: bed300a492716f541985f7229d9c7952, type: 2}
+      ratio: 6
+    - dungeonObject: {fileID: 11400000, guid: bb96e9f0a654c774193849af805d3d7b, type: 2}
+      ratio: 3
+    - dungeonObject: {fileID: 11400000, guid: 47d7d63626dcb9c41ba45a820e5013a4, type: 2}
+      ratio: 3
+    - dungeonObject: {fileID: 11400000, guid: f3f7478896bd84840a5d48f7075431f2, type: 2}
+      ratio: 8
+    - dungeonObject: {fileID: 11400000, guid: 6f914fa86b1fc254eb26b744f28df4e4, type: 2}
+      ratio: 12
