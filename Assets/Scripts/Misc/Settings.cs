@@ -41,6 +41,9 @@ public static class Settings
     public static int rollRight = Animator.StringToHash("rollRight");
     public static float baseSpeedForPlayerAnimations = 8f;
 
+    // Enemy animator parameters
+    public static float baseSpeedForEnemyAnimations = 3f;
+
     // animator parameters - Door
     public static int open = Animator.StringToHash("open");
     #endregion
@@ -59,6 +62,7 @@ public static class Settings
     public const int preferredPathAStarMovementPenalty = 1;
     public const float playerMoveDistanceToRebuildPath = 3f;
     public const float enemyPathRebuildCooldown = 2f;
+    public const int targetFrameRateToSpreadPathfindingOver = 60;
     #endregion
 
     #region UI Parameters

@@ -105,7 +105,7 @@ MonoBehaviour:
       ratio: 1
     - dungeonObject: {fileID: 11400000, guid: 8907d27fc5c671849a335afa7f409b7e, type: 2}
       ratio: 1
-    - dungeonObject: {fileID: 11400000, guid: d217d041d982df941823bd8d3b229b0f, type: 2}
+    - dungeonObject: {fileID: 11400000, guid: 963b13aad528ee9438fb960acab9c084, type: 2}
       ratio: 1
     - dungeonObject: {fileID: 11400000, guid: c684e2834c9e4844684f8e5d689a76ad, type: 2}
       ratio: 3
