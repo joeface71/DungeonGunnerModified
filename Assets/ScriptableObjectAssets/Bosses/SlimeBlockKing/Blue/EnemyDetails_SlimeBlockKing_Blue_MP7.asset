@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: SlimeBlockKing_Blue
   enemyPrefab: {fileID: 1920729657695620620, guid: caf6345b4318e104daf8fdda87fdda51, type: 3}
+  chaseDistance: 50
+  enemyStandardMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  enemyMaterializeTime: 2
+  enemyMaterializeShader: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
+  enemyMaterializeColor: {r: 6.6551228, g: 0.35493988, b: 3.549399, a: 1}
