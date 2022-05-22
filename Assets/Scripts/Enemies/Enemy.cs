@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 #region REQUIRE COMPONENTS
-[RequireComponent(typeof(SortingGroup))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CircleCollider2D))]
-[RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(EnemyWeaponAI))]
+[RequireComponent(typeof(AimWeaponEvent))]
+[RequireComponent(typeof(AimWeapon))]
+[RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(FireWeapon))]
+[RequireComponent(typeof(SetActiveWeaponEvent))]
+[RequireComponent(typeof(ActiveWeapon))]
+[RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
+[RequireComponent(typeof(ReloadWeapon))]
+[RequireComponent(typeof(WeaponReloadedEvent))]
 [RequireComponent(typeof(EnemyMovementAI))]
 [RequireComponent(typeof(MovementToPositionEvent))]
 [RequireComponent(typeof(MovementToPosition))]
@@ -17,7 +22,12 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Idle))]
 [RequireComponent(typeof(AnimateEnemy))]
 [RequireComponent(typeof(MaterializeEffect))]
-
+[RequireComponent(typeof(SortingGroup))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
 #endregion
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
@@ -25,6 +35,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public EnemyDetailsSO enemyDetails;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public FireWeaponEvent fireWeaponEvent;
+    private FireWeapon fireWeapon;
+    private SetActiveWeaponEvent setActiveWeaponEvent;
     private EnemyMovementAI enemyMovementAI;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public IdleEvent idleEvent;
@@ -36,6 +48,10 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        aimWeaponEvent = GetComponent<AimWeaponEvent>();
+        fireWeaponEvent = GetComponent<FireWeaponEvent>();
+        fireWeapon = GetComponent<FireWeapon>();
+        setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
         enemyMovementAI = GetComponent<EnemyMovementAI>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         idleEvent = GetComponent<IdleEvent>();
@@ -55,9 +71,31 @@ public class Enemy : MonoBehaviour
 
         SetEnemyMovementUpdateFrame(enemySpawnNumber);
 
+        SetEnemyStartingWeapon();
+
         SetEnemyAnimationSpeed();
 
         StartCoroutine(MaterializeEnemy());
+    }
+
+    /// <summary>
+    /// Set enemy starting weapon as per the weapon details SO
+    /// </summary>
+    private void SetEnemyStartingWeapon()
+    {
+        if (enemyDetails.enemyWeapon != null)
+        {
+            Weapon weapon = new Weapon()
+            {
+                weaponDetails = enemyDetails.enemyWeapon,
+                weaponReloadTimer = 0f,
+                weaponClipRemainingAmmo = enemyDetails.enemyWeapon.weaponClipAmmoCapacity,
+                weaponRemainingAmmo = enemyDetails.enemyWeapon.weaponAmmoCapacity,
+                isWeaponReloading = false
+            };
+
+            setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
+        }
     }
 
     private void SetEnemyMovementUpdateFrame(int enemySpawnNumber)
@@ -89,5 +127,7 @@ public class Enemy : MonoBehaviour
         polygonCollider2D.enabled = isEnabled;
 
         enemyMovementAI.enabled = isEnabled;
+
+        fireWeapon.enabled = isEnabled;
     }
 }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d869d1227a8f8345b179e5f0a299820, type: 3}
+  m_Name: AmmoDetails_Shotgun_Enemy
+  m_EditorClassIdentifier: 
+  ammoName: Shotgun Ammo Enemy
+  isPlayerAmmo: 0
+  ammoSprite: {fileID: 21300000, guid: c3be09077243891458bdbf46a57d2e8a, type: 3}
+  ammoPrefabArray:
+  - {fileID: 1424690857295382478, guid: 5ba6ee67d007cec408a69e8dbb2f0023, type: 3}
+  ammoMaterial: {fileID: 2100000, guid: 1b532ea05a031ef428a7c91b6c79cc4b, type: 2}
+  ammoChargeTime: 0
+  ammoChargeMaterial: {fileID: 0}
+  ammoHitEffect: {fileID: 11400000, guid: 2795cf3c04c65c94db700a384911d204, type: 2}
+  ammoDamage: 6
+  ammoSpeedMin: 8
+  ammoSpeedMax: 11
+  ammoRange: 20
+  ammoRotationSpeed: 1
+  ammoSpreadMin: 1
+  ammoSpreadMax: 30
+  ammoSpawnAmountMin: 6
+  ammoSpawnAmountMax: 8
+  ammoSpawnIntervalMin: 0
+  ammoSpawnIntervalMax: 0.01
+  isAmmoTrail: 0
+  ammoTrailTime: 0
+  ammoTrailMaterial: {fileID: 0}
+  ammoTrailStartWidth: 0
+  ammoTrailEndWidth: 0
