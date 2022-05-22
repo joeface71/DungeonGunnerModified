@@ -36,6 +36,26 @@ public class EnemyDetailsSO : ScriptableObject
     [Tooltip("HDR color allows intensity adjustment")]
     public Color enemyMaterializeColor;
 
+    [Space(10)]
+    [Header("Enemy Weapon Setting")]
+
+    [Tooltip("Then enemy weapon - None if the enemy doesn't have a weapon")]
+    public WeaponDetailsSO enemyWeapon;
+
+    [Tooltip("Minimum delay in seconds between bursts of enemy shooting. A random value between min and max will be selected")]
+    public float firingIntervalMin = 0.1f;
+
+    [Tooltip("Maximum delay in seconds between bursts of enemy shooting. A random value between min and max will be selected")]
+    public float firingIntervalMax = 1f;
+
+    [Tooltip("Minimum firing duration.  Random value between min and max will be selected")]
+    public float firingDurationMin = 1f;
+
+    [Tooltip("Maximum firing duration.  Random value between min and max will be selected")]
+    public float firingDurationMax = 1f;
+
+    [Tooltip("Is line of sight needed for firing?")]
+    public bool firingLineOfSightRequired;
 
     #region Validation
     private void OnValidate()
@@ -46,6 +66,8 @@ public class EnemyDetailsSO : ScriptableObject
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyStandardMaterial), enemyStandardMaterial);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(enemyMaterializeTime), enemyMaterializeTime, true);
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyMaterializeShader), enemyMaterializeShader);
+        HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingIntervalMin), firingIntervalMin, nameof(firingIntervalMax), firingIntervalMax, false);
+        HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingDurationMin), firingDurationMin, nameof(firingDurationMax), firingDurationMax, false);
     }
     #endregion
 }
