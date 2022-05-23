@@ -57,6 +57,18 @@ public class EnemyDetailsSO : ScriptableObject
     [Tooltip("Is line of sight needed for firing?")]
     public bool firingLineOfSightRequired;
 
+    [Space(10)]
+    [Header("Enemy Health")]
+
+    [Tooltip("The health of the enemy for each level")]
+    public EnemyHealthDetails[] enemyHealthDetailsArray;
+
+    [Tooltip("Select if has immunity period immediately after being hit.")]
+    public bool isImmuneAfterHit = false;
+
+    [Tooltip("Immunity time in seconds after being hit")]
+    public float hitImmunityTime;
+
     #region Validation
     private void OnValidate()
     {
@@ -68,6 +80,11 @@ public class EnemyDetailsSO : ScriptableObject
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyMaterializeShader), enemyMaterializeShader);
         HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingIntervalMin), firingIntervalMin, nameof(firingIntervalMax), firingIntervalMax, false);
         HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingDurationMin), firingDurationMin, nameof(firingDurationMax), firingDurationMax, false);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyHealthDetailsArray), enemyHealthDetailsArray);
+        if (isImmuneAfterHit)
+        {
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(hitImmunityTime), hitImmunityTime, false);
+        }
     }
     #endregion
 }
