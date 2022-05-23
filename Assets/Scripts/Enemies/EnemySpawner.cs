@@ -119,7 +119,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
     /// <summary>
     /// Process enemy destroyed
     /// </summary>
-    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent)
+    private void Enemy_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
     {
         destroyedEvent.OnDestroyed -= Enemy_OnDestroyed;
 
