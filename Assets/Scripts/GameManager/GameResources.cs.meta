@@ -3,7 +3,17 @@ guid: 6149b3f8bc18b29468cee9bf98dcc0ad
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - roomNodeTypeList: {instanceID: 0}
+  - currentPlayer: {instanceID: 0}
+  - soundsMasterMixerGroup: {instanceID: 0}
+  - doorOpenCloseSoundEffect: {instanceID: 0}
+  - dimmedMaterial: {instanceID: 0}
+  - litMaterial: {instanceID: 0}
+  - variableLitShader: {instanceID: 0}
+  - preferredEnemyPathTile: {instanceID: 0}
+  - ammoIconPrefab: {instanceID: 0}
+  - heartPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
