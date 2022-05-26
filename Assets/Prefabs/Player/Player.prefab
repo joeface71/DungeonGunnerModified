@@ -376,6 +376,8 @@ GameObject:
   - component: {fileID: 8603675303009201157}
   - component: {fileID: 9111157222912528081}
   - component: {fileID: 6347848732598987349}
+  - component: {fileID: 1477747562633830339}
+  - component: {fileID: 5027464753117497909}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -411,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e40daf8c91f8334db40aafa62858152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   isDamageable: 1
 --- !u!210 &6084975027857597936
 SortingGroup:
@@ -594,6 +597,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDetails: {fileID: 0}
   health: {fileID: 0}
+  healthEvent: {fileID: 0}
+  destroyedEvent: {fileID: 0}
+  playerControl: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   idleEvent: {fileID: 0}
@@ -619,6 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDetails: {fileID: 11400000, guid: 757ac407c7bf80f44a014033a5399d1f, type: 2}
+  isPlayerRolling: 0
 --- !u!114 &2291855449535292844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,6 +871,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023024f1c958c244491c1a1a601a5f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1477747562633830339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084975027857597929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724ab841607ea474b880501c85d7d82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 131072
+--- !u!114 &5027464753117497909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084975027857597929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47243d31bc4d85c4a8758b929711ba40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 0
 --- !u!1 &6084975027875303968
 GameObject:
   m_ObjectHideFlags: 0
