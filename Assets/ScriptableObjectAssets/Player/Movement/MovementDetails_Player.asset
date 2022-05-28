@@ -16,4 +16,4 @@ MonoBehaviour:
   maxMoveSpeed: 8
   rollSpeed: 10
   rollDistance: 8
-  rollCooldownTime: 1
+  rollCooldownTime: 0.2

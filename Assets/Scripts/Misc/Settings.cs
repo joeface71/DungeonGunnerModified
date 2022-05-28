@@ -40,7 +40,7 @@ public static class Settings
     public static int rollDown = Animator.StringToHash("rollDown");
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
-    public static float baseSpeedForPlayerAnimations = 20f;
+    public static float baseSpeedForPlayerAnimations = 8f;
 
     // Enemy animator parameters
     public static float baseSpeedForEnemyAnimations = 3f;

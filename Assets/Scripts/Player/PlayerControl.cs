@@ -21,8 +21,9 @@ public class PlayerControl : MonoBehaviour
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    [HideInInspector] public bool isPlayerRolling = false;
     private float playerRollCooldownTimer = 0f;
+
+    [HideInInspector] public bool isPlayerRolling = false;
 
     private void Awake()
     {
@@ -237,6 +238,7 @@ public class PlayerControl : MonoBehaviour
 
     private void SwitchWeaponInput()
     {
+        // Switch weapon if mouse scroll wheel selecetd
         if (Input.mouseScrollDelta.y < 0f)
         {
             PreviousWeapon();
@@ -301,6 +303,7 @@ public class PlayerControl : MonoBehaviour
         {
             SetCurrentWeaponToFirstInTheList();
         }
+
     }
 
     private void SetWeaponByIndex(int weaponIndex)
@@ -322,6 +325,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         SetWeaponByIndex(currentWeaponIndex);
+
     }
 
     private void PreviousWeapon()
@@ -335,6 +339,7 @@ public class PlayerControl : MonoBehaviour
 
         SetWeaponByIndex(currentWeaponIndex);
     }
+
 
     private void ReloadWeaponInput()
     {
@@ -379,14 +384,20 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set the current weapon to be first in the player weapon list
+    /// </summary>
     private void SetCurrentWeaponToFirstInTheList()
     {
+        // Create new temporary list
         List<Weapon> tempWeaponList = new List<Weapon>();
 
+        // Add the current weapon to first in the temp list
         Weapon currentWeapon = player.weaponList[currentWeaponIndex - 1];
         currentWeapon.weaponListPosition = 1;
         tempWeaponList.Add(currentWeapon);
 
+        // Loop through existing weapon list and add - skipping current weapon
         int index = 2;
 
         foreach (Weapon weapon in player.weaponList)
@@ -398,10 +409,12 @@ public class PlayerControl : MonoBehaviour
             index++;
         }
 
+        // Assign new list
         player.weaponList = tempWeaponList;
 
         currentWeaponIndex = 1;
 
+        // Set current weapon
         SetWeaponByIndex(currentWeaponIndex);
     }
 
