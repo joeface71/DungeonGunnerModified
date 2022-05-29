@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
     private float playerRollCooldownTimer = 0f;
+    private bool isPlayerMovementDisabled = false;
 
     [HideInInspector] public bool isPlayerRolling = false;
 
@@ -75,6 +76,8 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        if (isPlayerMovementDisabled) return;
+
         // if player is rolling then return
         if (isPlayerRolling) return;
 
@@ -382,6 +385,23 @@ public class PlayerControl : MonoBehaviour
 
             isPlayerRolling = false;
         }
+    }
+
+    /// <summary>
+    /// Enable player
+    /// </summary>
+    public void EnablePlayer()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    /// <summary>
+    /// Disable player and set idle movement
+    /// </summary>
+    public void DisablePlayer()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.CallIdleEvent();
     }
 
     /// <summary>
