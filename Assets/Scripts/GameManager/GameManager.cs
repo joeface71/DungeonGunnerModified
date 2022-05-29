@@ -282,7 +282,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private IEnumerator LevelCompleted()
     {
-        gameState = GameState.levelCompleted;
+        gameState = GameState.playingLevel;
 
         yield return new WaitForSeconds(2f);
 
