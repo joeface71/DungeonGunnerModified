@@ -287,6 +287,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         player.gameObject.transform.position = HelperUtilities.GetSpawnPositionNearestToPlayer(player.gameObject.transform.position);
 
         StartCoroutine(DisplayDungeonLevelText());
+
+        // test code
+        RoomEnemiesDefeated();
     }
 
     private IEnumerator DisplayDungeonLevelText()
@@ -396,7 +399,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         previousGameState = GameState.gameWon;
 
-        GetPlayer().playerControl.enabled = false;
+        GetPlayer().playerControl.DisablePlayer();
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
@@ -413,7 +416,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         previousGameState = GameState.gameLost;
 
-        GetPlayer().playerControl.enabled = false;
+        GetPlayer().playerControl.DisablePlayer();
 
         yield return new WaitForSeconds(1f);
 

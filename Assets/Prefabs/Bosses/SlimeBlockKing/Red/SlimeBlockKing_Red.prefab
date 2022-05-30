@@ -31,6 +31,10 @@ PrefabInstance:
       propertyPath: enemyDetails
       value: 
       objectReference: {fileID: 11400000, guid: 6809150b63445e444a82580c8d19e763, type: 2}
+    - target: {fileID: 4391707063272343183, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.91
+      objectReference: {fileID: 0}
     - target: {fileID: 4770218244887534015, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 3

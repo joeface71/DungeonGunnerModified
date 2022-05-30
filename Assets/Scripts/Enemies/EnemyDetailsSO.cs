@@ -69,6 +69,9 @@ public class EnemyDetailsSO : ScriptableObject
     [Tooltip("Immunity time in seconds after being hit")]
     public float hitImmunityTime;
 
+    [Tooltip("Select to display a health bar for the enemy")]
+    public bool isHealthBarDisplayed = false;
+
     #region Validation
     private void OnValidate()
     {
