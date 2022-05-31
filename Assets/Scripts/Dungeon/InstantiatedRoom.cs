@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,12 @@ public class InstantiatedRoom : MonoBehaviour
     [HideInInspector] public Tilemap minimapTilemap;
     [HideInInspector] public int[,] aStarMovementPenalty; // use to store movement penalties
     [HideInInspector] public Bounds roomColliderBounds;
+
+    [Space(10)]
+    [Header("Object References")]
+
+    [Tooltip("Populate with the environment child placeholder gameobject")]
+    [SerializeField] private GameObject environmentGameObject;
 
     private BoxCollider2D boxCollider2D;
 
@@ -53,6 +60,22 @@ public class InstantiatedRoom : MonoBehaviour
         AddDoorsToRooms();
 
         DisableCollisionTilemapRenderer();
+    }
+
+    public void ActivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(true);
+        }
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -341,6 +364,15 @@ public class InstantiatedRoom : MonoBehaviour
 
         EnableRoomCollider();
     }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(environmentGameObject), environmentGameObject);
+    }
+#endif
+    #endregion
 
 
 }
