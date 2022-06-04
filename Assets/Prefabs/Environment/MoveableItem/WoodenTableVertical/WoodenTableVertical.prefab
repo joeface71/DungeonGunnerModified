@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &829311287707922671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678881978769678098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd443345599b3094283a3204096497e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemMass: 8
 --- !u!1001 &8377691856884318745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,6 +20,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 958123629439630817, guid: 512f866cd38f2a3469e5d379f923700c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b066303e52b20704cbd150ed9810ece7, type: 2}
     - target: {fileID: 2950893072257834251, guid: 512f866cd38f2a3469e5d379f923700c, type: 3}
       propertyPath: m_Name
       value: WoodenTableVertical
@@ -111,5 +128,14 @@ PrefabInstance:
       propertyPath: moveSoundEffect
       value: 
       objectReference: {fileID: 11400000, guid: a0786a7d624ac384eb3e8e6e3a9a1ab9, type: 2}
+    - target: {fileID: 9061536692943885203, guid: 512f866cd38f2a3469e5d379f923700c, type: 3}
+      propertyPath: m_Mass
+      value: 99999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 512f866cd38f2a3469e5d379f923700c, type: 3}
+--- !u!1 &6678881978769678098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2950893072257834251, guid: 512f866cd38f2a3469e5d379f923700c, type: 3}
+  m_PrefabInstance: {fileID: 8377691856884318745}
+  m_PrefabAsset: {fileID: 0}
