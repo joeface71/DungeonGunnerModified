@@ -1826,7 +1826,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1359c9a94126874ab91a29a5e42e71b, type: 2}
   - {fileID: 11400000, guid: 572b78511055e2d459f68b649c207a82, type: 2}
   - {fileID: 11400000, guid: eb768ac1213147c47be3245731232fb4, type: 2}
-  currentDungeonLevelListIndex: 0
+  currentDungeonLevelListIndex: 4
   gameState: 0
   previousGameState: 0
 --- !u!4 &1158749295
@@ -2536,6 +2536,21 @@ MonoBehaviour:
     componentType: AmmoHitEffect
   - poolSize: 200
     prefab: {fileID: 1424690857295382478, guid: 5ba6ee67d007cec408a69e8dbb2f0023, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 2821516556206201689, guid: 0d2fbe4a2091f94478fba5970ebb8b33, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 5005126977923770317, guid: 4371ba13bae637848a2ceabe108c4d69, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 6431795771027809163, guid: f4c9f67e319dd634b92c765362f53d17, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 7541735566276443255, guid: af0db9aba6e8e184190fd027ed707b0b, type: 3}
+    componentType: IFireable
+  - poolSize: 10
+    prefab: {fileID: 8410484115221990197, guid: b125bb2a545032a44b90a50fa4c9b968, type: 3}
     componentType: IFireable
 --- !u!4 &1598351830
 Transform:

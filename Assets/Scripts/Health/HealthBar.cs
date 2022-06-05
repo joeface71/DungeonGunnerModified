@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     public void EnableHealthBar()
     {
-        healthBar.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     public void DisableHealthBar()
     {
-        healthBar.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     /// <summary>

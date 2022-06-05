@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: movementDetails
       value: 
       objectReference: {fileID: 11400000, guid: 93ee8b5cfaf51eb44b003bdd2a501540, type: 2}
+    - target: {fileID: 5696815448509797023, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5835624594301315889, guid: 5adb84a50e697d14d9ddf1dbbf1918b5, type: 3}
       propertyPath: m_Name
       value: Hedusa_Blue

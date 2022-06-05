@@ -7,9 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2809615575576159896, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
+      propertyPath: lightFlickerTimeMax
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809615575576159896, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
+      propertyPath: lightFlickerTimeMin
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6763206371881874184, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch_Brown_FlameMaterial
       objectReference: {fileID: 0}
     - target: {fileID: 9047261517080646229, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
       propertyPath: m_RootOrder

@@ -324,8 +324,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightIntensityMin: 0.3
   lightIntensityMax: 0.6
-  lightFlickerTimeMax: 0.15
-  lightFlickerTimeMin: 0.35
+  lightFlickerTimeMin: 0.15
+  lightFlickerTimeMax: 0.35
 --- !u!210 &4016326328492449401
 SortingGroup:
   m_ObjectHideFlags: 0

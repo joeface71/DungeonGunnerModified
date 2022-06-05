@@ -10,8 +10,8 @@ public class LightFlicker : MonoBehaviour
     private Light2D light2D;
     [SerializeField] private float lightIntensityMin;
     [SerializeField] private float lightIntensityMax;
-    [SerializeField] private float lightFlickerTimeMax;
     [SerializeField] private float lightFlickerTimeMin;
+    [SerializeField] private float lightFlickerTimeMax;
     private float lightFlickerTimer;
 
     private void Awake()

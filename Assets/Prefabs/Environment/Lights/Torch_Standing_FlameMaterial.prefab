@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8a7ff3f01f8d4dc49b0d136d7002b53f, type: 3}
+    - target: {fileID: 2809615575576159896, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
+      propertyPath: lightFlickerTimeMax
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809615575576159896, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
+      propertyPath: lightFlickerTimeMin
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2922061053460029242, guid: 9e0a59254ce44cd469aa725fe081c299, type: 3}
       propertyPath: m_PointLightInnerAngle
       value: 360
