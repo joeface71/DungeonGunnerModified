@@ -55,6 +55,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private long gameScore;
     private int scoreMultiplier;
     private InstantiatedRoom bossRoom;
+    private bool isFading = false;
 
     protected override void Awake()
     {
@@ -228,6 +229,33 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
                 break;
 
+            case GameState.playingLevel:
+
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    DisplayDungeonOverviewMap();
+                }
+
+                break;
+
+            case GameState.dungeonOverviewMap:
+
+                if (Input.GetKeyUp(KeyCode.Tab))
+                {
+                    DungeonMap.Instance.ClearDungeonOverviewMap();
+                }
+
+                break;
+
+            case GameState.bossStage:
+
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    DisplayDungeonOverviewMap();
+                }
+
+                break;
+
             // handle the level being completed
             case GameState.levelCompleted:
 
@@ -327,6 +355,13 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             StartCoroutine(BossStage());
         }
 
+    }
+
+    private void DisplayDungeonOverviewMap()
+    {
+        if (isFading) return;
+
+        DungeonMap.Instance.DisplayDungeonOverviewMap();
     }
 
     private void PlayDungeonLevel(int dungeonLevelListIndex)
@@ -477,6 +512,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     /// </summary>
     public IEnumerator Fade(float startFadeAlpha, float targetFadeAlpha, float fadeSeconds, Color backgroundColor)
     {
+        isFading = true;
+
         Image image = canvasGroup.GetComponent<Image>();
         image.color = backgroundColor;
 
@@ -488,7 +525,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             canvasGroup.alpha = Mathf.Lerp(startFadeAlpha, targetFadeAlpha, time / fadeSeconds);
             yield return null;
         }
-
+        isFading = false;
     }
 
 
