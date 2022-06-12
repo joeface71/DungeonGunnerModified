@@ -51,6 +51,8 @@ public class GameResources : MonoBehaviour
     public AudioMixerSnapshot musicLowSnapshot;
     [Tooltip("Music off snapshot")]
     public AudioMixerSnapshot musicOffSnapshot;
+    [Tooltip("Main menu music SO")]
+    public MusicTrackSO mainMenuMusic;
 
     #region Header SOUNDS
     [Space(10)]
@@ -184,6 +186,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnFullSnapshot), musicOnFullSnapshot);
         HelperUtilities.ValidateCheckNullValue(this, nameof(musicLowSnapshot), musicLowSnapshot);
         HelperUtilities.ValidateCheckNullValue(this, nameof(musicOffSnapshot), musicOffSnapshot);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(mainMenuMusic), mainMenuMusic);
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartPrefab), heartPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(chestItemPrefab), chestItemPrefab);
