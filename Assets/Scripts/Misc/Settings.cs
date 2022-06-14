@@ -95,4 +95,8 @@ public static class Settings
     public const float musicFadeInTime = 0.5f;
     #endregion
 
+    #region Highscores
+    public const int numberOfHighScoresToSave = 100;
+    #endregion
+
 }

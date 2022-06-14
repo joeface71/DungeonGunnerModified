@@ -30,6 +30,12 @@ public class GameResources : MonoBehaviour
 
     public RoomNodeTypeListSO roomNodeTypeList;
 
+    [Space(10)]
+    [Header("Player Selection")]
+
+    [Tooltip("The playerselection prefab")]
+    public GameObject playerSelectionPrefab;
+
     #region Header PLAYER
     [Space(10)]
     [Header("PLAYER")]
@@ -38,6 +44,9 @@ public class GameResources : MonoBehaviour
     [Tooltip("The current player scriptable object - this is used to reference the current player between scenes")]
     #endregion Tooltip
     public CurrentPlayerSO currentPlayer;
+
+    [Tooltip("Player details list - populate the list with the playerdetails SOs")]
+    public List<PlayerDetailsSO> playerDetailsList;
 
     #region Header Music
     [Space(10)]
@@ -138,6 +147,10 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with heart prefab")]
     #endregion
     public GameObject heartPrefab;
+    #region Tooltip
+    [Tooltip("Score Prefab")]
+    #endregion
+    public GameObject scorePrefab;
 
     #region Header CHESTS
     [Space(10)]
@@ -168,7 +181,10 @@ public class GameResources : MonoBehaviour
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckNullValue(this, nameof(roomNodeTypeList), roomNodeTypeList);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(playerSelectionPrefab), playerSelectionPrefab);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(playerDetailsList), playerDetailsList);
         HelperUtilities.ValidateCheckNullValue(this, nameof(currentPlayer), currentPlayer);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(scorePrefab), scorePrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMasterMixerGroup), soundsMasterMixerGroup);
         HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenCloseSoundEffect), doorOpenCloseSoundEffect);
         HelperUtilities.ValidateCheckNullValue(this, nameof(tableFlip), tableFlip);
