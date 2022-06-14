@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelectorScene.unity
     guid: d4f8241a04102fd418bb9b58bcb9a869
   - enabled: 1
+    path: Assets/Scenes/HighScoreScene.unity
+    guid: 3c4accb87f1882a4585a1a7cdb6b55c6
+  - enabled: 1
+    path: Assets/Scenes/InstructionsScene.unity
+    guid: 04aca94b4f879a948ab2896c92339d39
+  - enabled: 1
     path: Assets/Scenes/MainGameScene.unity
     guid: 77f33823ba397514eb8dfb03755ea213
   - enabled: 0
